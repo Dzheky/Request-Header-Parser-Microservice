@@ -10,7 +10,10 @@ app.get('/', function(req, res, next) {
 
 app.get('/whoiam', function(req, res, next) {
     res.writeHead(200, {'Content-Type': 'application/JSON'});
-    res.end(JSON.stringify({hello: process.env}));
+    res.end(JSON.stringify({ipaddress: req.headers['x-forwarded-for'], 
+                            language: req.headers['accept-language'].split(';')[0], 
+                            region: req.headers['x-region'], 
+                            software: req.headers['user-agent'].split('(')[1].split([')'])[0]}));
 })
 
 
